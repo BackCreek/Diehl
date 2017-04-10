@@ -29,9 +29,8 @@
     <!-- wrapping div for the nav bar -->
     <nav class="container">
       <ul class="nav nav-pills nav-justified hidden-xs">
-        <li><a href ="index.html">Home</a></li>
-        <li><a href="index.html#info">About Us</a></li>
-        <!-- Link to seperate simple login.html -->
+        <li><a href ="index">Home</a></li>
+        <li><a href="index#info">About Us</a></li>
         <li class="active"><a href="#">Restaurant Login</a></li>
       </ul>
     </nav>
@@ -39,25 +38,25 @@
     <div class="container">
       <h2>RESTAURANT LOGIN</h2>
     </div>
-    <div class="container login-form">
-      <form>
+    <div class="container login-container">
+      <form action="order" id="res-id-form">
         <div class="form-group has-success has-feedback">
-          <label for="res-id">Sign in using your numeric Restaurant ID:</label>
+          <label for="res-id">Sign in with your Restaurant ID:</label>
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-leaf"></i></span>
-            <input type="number" name="restaurant-id" placeholder="Restaurant ID" class="form-control" id="res-id">
+            <input required type="text" pattern="[0-9]{5}" placeholder="Restaurant ID" class="form-control" id="res-id" name="res-id">
           </div>
         </div>
         <button type="submit" class="btn btn-default btn-block">Submit</button>
       </form>
-    </div> <!-- /container -->
+    </div>
 
     <!--footer elements.   can add social media buttons if needed.  -->
     <!-- wrapping div for the bottom nav bar -->
     <nav class="navbar navbar-fixed-bottom lower-nav">
       <div class="container">
           <ul class="nav nav-pills text-right lower-right-nav">
-            <li class="active visible-xs"><a class="login-small" href="index.html">Diehl's Produce</a></li>
+            <li class="active visible-xs"><a class="login-small" href="index">Diehl's Produce</a></li>
             <li class="hidden-xs"><a target="_blank" href="https://www.facebook.com/DiehlsProduceAnnapolis/"><img class="fb" src="assets/img/fb-icon.jpg"/>Like Us</a></li>
           </ul>
           <ul class="nav text-left lower-left-nav">
@@ -70,8 +69,9 @@
 
     <!--Bootstrap javascript imports-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
   </body>
 </html>

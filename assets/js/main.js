@@ -17,5 +17,15 @@ $(document).ready(function() {
       });
     }  // End if
   });
+  // Validation for res-id and custom error message. Need to work on this more and implement our own submit event
+  $("#res-id").on('invalid', function(event) {
+    this.setCustomValidity("Please input your 5-digit Restaurant ID");
+  });
+  $("#res-id").on('change', function(event) {
+    this.setCustomValidity('');
+  });
+  // Handle footer with phone keyboards
+  $("#res-id").on('focus', function(event) {
+    //Hide the lower-nav class?
+  });
 });
-

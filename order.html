@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Diehl's Produce</title>
+    <meta name="description" content="Fresh, local produce coming from Maryland and the surrounding areas. Serving consumers and food services.">
+    <meta name="author" content="rookinley">
+    <meta name="keywords" content="produce, annapolis, fruits, veggies, eastport, vegetables, diehl, plants, herbs">
+    <link rel="icon" type="image/png" href="assets/img/glyphicons-leaf.png">
+    <!--Google fonts CSS-->
+    <link href="vendor/google/css/fonts.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+  <div class="container-fluid">
+    <h2>Build Your Order</h2>
+  </div>
+  <form class="order-form container form-inline">
+    <div class="form-group">
+      <!--  selector that chooses produce item-->
+      <label class="control-label" for="produce_select">Produce</label>
+      <select required class="form-control" id="produce_select">
+        <option disabled selected value="">Select...</option>
+        <option value="Tomato (case)">Tomato (case)</option>
+        <option value="Squash (case)">Squash (case)</option>
+        <option value="Onion (case)">Onion (case)</option>
+      </select>
+      <!--  quantity selector -->
+      <label class="control-label" for="quantity_select">Quantity</label>
+      <input required type="number" min="0" max="100" step="1" class="form-control" id="quantity_select">
+      <!--  green btton that adds item to UL-->
+      <button type="submit" class="btn btn-success order-button" id="add-item">Add Item</button>
+    </div>
+  </form>
+
+<div class="container hidden" id="order-list">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="order-table">
+    </tbody>
+  </table>
+</div>
+
+<!--  bottom submit button to nav to the review page / order confirmation pop-up....whatever-->
+<form action="https://formspree.io/bsparrow435@gmail.com" method="POST" class="container form-inline hidden" id="submit-form">
+  <div class="form-group">
+    <label class="control-label" for="date_select">Delivery Date</label>
+    <input required name="Delivery Date" type="date" class="form-control center-block" id="date_select">
+    <button type="submit" class="btn btn-lg btn-primary order-button" id="submit">Submit My Order</button>
+  </div>  
+  <p>  You will have a chance to review your order before it is final. </p>
+</form>
+
+<div class="container order-footer">
+</div>
+
+<!--Bootstrap javascript imports-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!--  javascript control of the list above -->
+<script>
+  $(function(){
+    $(document).ready(function(){
+      $(".order-footer").append($("<p>").html("Restaurant ID: " + $.urlParam("res-id")));
+      $(".order-footer").append($("<p>").html("Email: bsparrow435@gmail.com"));
+
+      $("#submit-form").on('submit', function(event) {
+        //Currently just using formspree but should do something here for invoices
+      });
+
+      // $("#produce_select").load('produce.txt');
+      $(".order-form").on('submit', function(event) {
+        event.preventDefault();
+        if($("#order-list").hasClass("hidden")){
+          $("#order-list").removeClass("hidden");
+          $("#submit-form").removeClass("hidden");
+        }
+        else{
+          //Nothing
+        }
+        removeButton = '<button type="button" class="btn btn-danger btn-xs remove-order">';
+        glyphRemove = '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>';
+        var content = $("<td>" + $("#produce_select").val() + "</td>" + "<td>" + $("#quantity_select").val() + "</td>" + "<td>" + removeButton + glyphRemove +"</td>");
+        $("#order-table").append($("<tr>").html(content));
+        $(".remove-order").on('click', function(){
+          $(this).parent().parent().remove();
+        });
+      });
+    });
+  });
+
+  $.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
+};
+</script>
+
+</body>
